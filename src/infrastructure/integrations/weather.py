@@ -1,0 +1,1 @@
+# Integration with some weather API
