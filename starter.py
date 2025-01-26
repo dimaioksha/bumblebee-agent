@@ -162,6 +162,9 @@ if __name__ == "__main__":
         # Проверяем невыполненные задачи каждую минуту
         tasks = check_pending_tasks()
 
+        if tasks:
+            stream.feed(['Напоминание']).play()
+        
         for task in tasks:
             task_id, google_calendar_id, summary, notification_time = task
             print(f"[NOTIFICATION] {summary} (Notification Time: {notification_time})")
@@ -177,7 +180,7 @@ if __name__ == "__main__":
             sync_with_calendar(calendar_instance)
             last_calendar_sync_time = time.time()
 
-        # Рассчитываем оставшееся время до 3 секунд
+        # Рассчитываем оставшееся время до 1 секунды
         elapsed_time = time.time() - start_time
         if elapsed_time < 1:
             time.sleep(1 - elapsed_time)
