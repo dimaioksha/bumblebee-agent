@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  starter:
+    build: .
+    container_name: starter_service
+    environment:
+      - APP_MODE=starter
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_CUSTOM_SEARCH_API_KEY=${GOOGLE_CUSTOM_SEARCH_API_KEY}
+      - GOOGLE_SEARCH_ENGINE_ID=${GOOGLE_SEARCH_ENGINE_ID}
+      - CALENDAR_ID=${CALENDAR_ID}
+      - KEYFILE=keys.json
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  agent:
+    build: .
+    container_name: agent_service
+    environment:
+      - APP_MODE=agent
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_CUSTOM_SEARCH_API_KEY=${GOOGLE_CUSTOM_SEARCH_API_KEY}
+      - GOOGLE_SEARCH_ENGINE_ID=${GOOGLE_SEARCH_ENGINE_ID}
+      - CALENDAR_ID=${CALENDAR_ID}
+      - KEYFILE=keys.json
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8001"
+    depends_on:
+      - db
+
+  db:
+    image: sqlite3
+    container_name: my_sqlite_db
+    volumes:
+      - db_data:/var/lib/sqlite3
+
+volumes:
+  db_data: 
