@@ -1,4 +1,4 @@
-# Melon — voice assistant
+# Bumblebee — voice assistant
 
 This project is a smart voice assistant that uses various libraries and interacts with Google Calendar and saves information about your events.
 
